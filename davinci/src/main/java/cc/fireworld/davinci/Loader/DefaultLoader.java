@@ -11,7 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import cc.fireworld.davinci.util.LogUtils;
-import cc.fireworld.davinci.util.Op;
+import cc.fireworld.davinci.util.OpUtils;
 
 /**
  * Created by cxx on 16-3-15.
@@ -24,7 +24,7 @@ public class DefaultLoader implements Loader<InputStream> {
     private Config mConfig;
 
     public DefaultLoader(@NonNull Config config) {
-        mConfig = Op.nonNull(config, "config == null");
+        mConfig = OpUtils.nonNull(config, "config == null");
     }
 
     @NonNull

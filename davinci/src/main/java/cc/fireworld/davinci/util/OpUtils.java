@@ -4,7 +4,7 @@ package cc.fireworld.davinci.util;
  * Created by cxx on 16-8-11.
  * xx.ch@outlook.com
  */
-public final class Op {
+public final class OpUtils {
     public static <T> T orElse(T value, T other) {
         return value != null ? value : other;
     }
@@ -27,7 +27,7 @@ public final class Op {
         return value;
     }
 
-    private Op() {
+    private OpUtils() {
         throw new AssertionError("no instance");
     }
 }

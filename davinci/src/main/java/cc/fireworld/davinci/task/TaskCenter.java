@@ -12,7 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import cc.fireworld.davinci.ImageOptions;
 import cc.fireworld.davinci.Loader.Loader;
 import cc.fireworld.davinci.cache.Cacheable;
-import cc.fireworld.davinci.util.Op;
+import cc.fireworld.davinci.util.OpUtils;
 
 /**
  * Image Center, dispatch task.
@@ -43,9 +43,9 @@ public class TaskCenter implements TaskQueue.TaskListener {
     }
 
     private Task createTask(String url, ImageView iv, ImageOptions opts, Loader.Listener listener) {
-        String u = Op.nonNull(url, "url == null");
-        ImageView v = Op.nonNull(iv, "iv == null");
-        ImageOptions o = Op.orElse(opts, defOpts);
+        String u = OpUtils.nonNull(url, "url == null");
+        ImageView v = OpUtils.nonNull(iv, "iv == null");
+        ImageOptions o = OpUtils.orElse(opts, defOpts);
         return new Task(u, v, o, listener);
     }
 

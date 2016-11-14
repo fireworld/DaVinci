@@ -28,7 +28,7 @@ public class LoadQueue implements TaskQueue {
     private ExecutorService executor = new ThreadPoolExecutor(6, 10, 60L, TimeUnit.SECONDS,
             new LinkedBlockingDeque<Runnable>(), new ThreadPoolExecutor.DiscardOldestPolicy());
 
-    private Set<String> runningTask = new ConcurrentSkipListSet<>();
+    private Set<String> tasks = new ConcurrentSkipListSet<>(); // running task.
     private Cacheable<String, Bitmap, ImageOptions> cache;
     private Loader<InputStream> loader;
     private TaskListener listener;
@@ -41,14 +41,14 @@ public class LoadQueue implements TaskQueue {
 
     @Override
     public void addTask(@NonNull Task task) {
-        if (runningTask.add(task.key)) {
+        task.onPreExecute();
+        if (tasks.add(task.key)) {
             executeTask(task);
         }
     }
 
     private void executeTask(final Task task) {
         LogUtils.i("ExecuteTask", "Url: " + task.url);
-        task.onPreExecute();
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -75,11 +75,11 @@ public class LoadQueue implements TaskQueue {
 
     @Override
     public void finishTask(@NonNull Task task) {
-        runningTask.remove(task.key);
+        tasks.remove(task.key);
     }
 
     @Override
     public void removeTask(@NonNull Task task) {
-        runningTask.remove(task.key);
+        tasks.remove(task.key);
     }
 }

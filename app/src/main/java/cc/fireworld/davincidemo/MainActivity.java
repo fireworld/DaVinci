@@ -22,6 +22,7 @@ import java.util.List;
 
 import cc.fireworld.davinci.DaVinci;
 import cc.fireworld.davinci.ImageOptions;
+import cc.fireworld.davinci.util.LogUtils;
 
 
 public class MainActivity extends Activity {
@@ -66,6 +67,7 @@ public class MainActivity extends Activity {
 
     private void initDaVinci() {
         DaVinci.getInstance().setDefaultImageOptions(new ImageOptions(500, 500, R.mipmap.ic_launcher)).init(getApplicationContext());
+//        DaVinci.getInstance().init(getApplicationContext());
     }
 
 
@@ -77,7 +79,8 @@ public class MainActivity extends Activity {
                 holder.setText(R.id.tv_name, courseBean.getName())
                         .setText(R.id.tv_description, courseBean.getDescription());
                 ImageView imageView = holder.getView(R.id.iv_icon);
-                DaVinci.getInstance().display(courseBean.getPicBigUrl(), imageView);
+                DaVinci.getInstance().display(courseBean.getPicSmallUrl(), imageView);
+                LogUtils.e("MainActivity", holder.getPosition() + " : " + courseBean.getPicBigUrl());
 //                Picasso.with(MainActivity.this).load(courseBean.getPicBigUrl()).into(imageView);
             }
         };

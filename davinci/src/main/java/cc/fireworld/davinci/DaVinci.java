@@ -13,7 +13,7 @@ import cc.fireworld.davinci.cache.BitmapCache;
 import cc.fireworld.davinci.cache.Cacheable;
 import cc.fireworld.davinci.task.TaskCenter;
 import cc.fireworld.davinci.util.LogUtils;
-import cc.fireworld.davinci.util.Op;
+import cc.fireworld.davinci.util.OpUtils;
 
 /**
  * Simple Demo:
@@ -79,7 +79,7 @@ public class DaVinci {
      * @return DaVinci
      */
     public DaVinci setDefaultLoader(@NonNull Loader<InputStream> loader) {
-        this.loader = Op.nonNull(loader, "loader == null");
+        this.loader = OpUtils.nonNull(loader, "loader == null");
         return this;
     }
 
@@ -90,13 +90,13 @@ public class DaVinci {
      * @return DaVinci
      */
     public DaVinci setDefaultCache(Cacheable<String, Bitmap, ImageOptions> cache) {
-        this.cache = Op.nonNull(cache, "cache == null");
+        this.cache = OpUtils.nonNull(cache, "cache == null");
         return this;
     }
 
     public void init(@NonNull Context context) {
         if (taskCenter != null) return;
-        initCache(Op.nonNull(context, "context ==  null"));
+        initCache(OpUtils.nonNull(context, "context ==  null"));
         initLoader();
         initDefOpts();
         taskCenter = new TaskCenter(cache, loader, defOpts);

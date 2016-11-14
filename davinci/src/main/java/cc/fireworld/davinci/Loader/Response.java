@@ -2,7 +2,7 @@ package cc.fireworld.davinci.Loader;
 
 import android.support.annotation.NonNull;
 
-import cc.fireworld.davinci.util.Op;
+import cc.fireworld.davinci.util.OpUtils;
 
 /**
  * loader response
@@ -21,7 +21,7 @@ public class Response<T> {
     }
 
     public static <T> Response<T> onSuccess(int code, String msg, @NonNull T data) {
-        return new Response<>(code, msg, Op.nonNull(data, "data == null"));
+        return new Response<>(code, msg, OpUtils.nonNull(data, "data == null"));
     }
 
     public static <T> Response<T> onFail(int code, String msg) {

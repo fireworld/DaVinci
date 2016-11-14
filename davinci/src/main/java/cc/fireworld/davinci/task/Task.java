@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.widget.ImageView;
 
+import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
 import cc.fireworld.davinci.ImageOptions;
@@ -22,7 +23,7 @@ final class Task implements Comparable<Task> {
 
     final String url;
     final String key;
-    final WeakReference<ImageView> ref;
+    final Reference<ImageView> ref;
     final ImageOptions opts;
     final Loader.Listener listener;
 
@@ -40,6 +41,8 @@ final class Task implements Comparable<Task> {
             iv.setTag(TAG, key);
             if (opts.defImageId != 0) {
                 iv.setImageResource(opts.defImageId);
+            } else {
+                iv.setImageDrawable(null);
             }
         }
     }

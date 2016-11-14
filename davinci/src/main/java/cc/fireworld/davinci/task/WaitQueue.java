@@ -19,7 +19,7 @@ import cc.fireworld.davinci.cache.Cacheable;
  * email: xx.ch@outlook.com
  */
 public class WaitQueue implements TaskQueue {
-    private Map<String, NavigableSet<Task>> waitingTask = new ConcurrentHashMap<>();
+    private Map<String, NavigableSet<Task>> tasks = new ConcurrentHashMap<>(); // waiting tasks
     private Cacheable<String, Bitmap, ImageOptions> cache;
     private Handler handler = new Handler(Looper.getMainLooper());
 
@@ -30,17 +30,17 @@ public class WaitQueue implements TaskQueue {
     @Override
     public void addTask(@NonNull Task task) {
         String key = task.key;
-        NavigableSet<Task> set = waitingTask.get(key);
+        NavigableSet<Task> set = tasks.get(key);
         if (set == null) {
             set = new ConcurrentSkipListSet<>();
-            waitingTask.put(key, set);
+            tasks.put(key, set);
         }
         set.add(task);
     }
 
     @Override
     public void removeTask(@NonNull Task task) {
-        waitingTask.remove(task.key);
+        tasks.remove(task.key);
     }
 
     @Override
@@ -53,8 +53,8 @@ public class WaitQueue implements TaskQueue {
     }
 
     private void searchAndDisplay(@NonNull String key, @NonNull final Bitmap bitmap) {
-        final NavigableSet<Task> set = waitingTask.get(key);
-        waitingTask.remove(key);
+        final NavigableSet<Task> set = tasks.get(key);
+        tasks.remove(key);
         if (set != null) {
             handler.post(new Runnable() {
                 @Override
