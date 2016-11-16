@@ -23,9 +23,9 @@ final class Task implements Comparable<Task> {
 
     final String url;
     final String key;
-    final Reference<ImageView> ref;
     final ImageOptions opts;
-    final Loader.Listener listener;
+    private final Reference<ImageView> ref;
+    private final Loader.Listener listener;
 
     Task(@NonNull String url, @NonNull ImageView iv, @NonNull ImageOptions opts, Loader.Listener listener) {
         this.url = url;
