@@ -83,7 +83,6 @@ final class Task implements Comparable<Task> {
         if (!ref.equals(task.ref)) return false;
         if (!opts.equals(task.opts)) return false;
         return listener != null ? listener.equals(task.listener) : task.listener == null;
-
     }
 
     @Override
